@@ -1,16 +1,12 @@
-FROM eclipse-temurin:17-jdk
-
+# 1단계: 빌드
+FROM gradle:8.4-jdk17 AS build
 WORKDIR /app
+COPY . .
+RUN gradle build -x test
 
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-
-RUN chmod +x gradlew
-
-COPY src src
-
-RUN ./gradlew build -x test
-
-CMD ["java", "-jar", "build/libs/*.jar"]
+# 2단계: 실행
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","app.jar"]
