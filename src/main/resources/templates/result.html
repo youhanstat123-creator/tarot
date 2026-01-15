@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>타로 결과</title>
+
+    <style>
+        body {
+            background: linear-gradient(#0f1020, #050510);
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        .tarot-box {
+            width: 220px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 220px;
+            height: 360px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        .tarot-box.flip .card {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .card-back {
+            background: black;
+        }
+
+        .card-front {
+            transform: rotateY(180deg);
+            background: #1b1c3a;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-text {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin-top: 0;
+        }
+
+        .tarot-box.flip .card-text {
+            opacity: 1;
+            max-height: 240px;
+            margin-top: 16px;
+        }
+
+        .card-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .card-explanation {
+            margin-top: 8px;
+            color: #ffd;
+            font-style: italic;
+            white-space: pre-line; /* ⭐ 줄바꿈 핵심 */
+        }
+
+        .buttons {
+            margin-top: 60px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            margin: 8px 12px;
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .buttons a:hover {
+            color: white;
+        }
+        @media (max-width: 768px) {
+
+    .tarot-box {
+        width: 180px;
+        margin: 30px auto;
+    }
+
+    .card {
+        width: 180px;
+        height: 300px;
+    }
+
+    .card-explanation {
+        font-size: 14px;
+    }
+}
+/* 🖱 PC 카드 Hover 효과 */
+@media (hover: hover) {
+
+    .card {
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.04);
+        box-shadow:
+            0 0 20px rgba(255, 215, 150, 0.45),
+            0 0 40px rgba(255, 215, 150, 0.25);
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+<h2>카드를 눌러주세요 🔮</h2>
+
+<div class="tarot-box" onclick="this.classList.toggle('flip')">
+
+    <div class="card">
+
+        <!-- 카드 뒷면 -->
+        <div class="card-face card-back">
+            <img src="/image/back.png">
+        </div>
+
+        <!-- 카드 앞면 -->
+        <div class="card-face card-front">
+            <img th:src="@{/image/{img}(img=${tarotCard.image})}">
+        </div>
+
+    </div>
+
+    <!-- ⭐ 카드 설명 -->
+    <div class="card-text">
+        <div class="card-name" th:text="${tarotCard.name}"></div>
+
+        <!-- 🔮 진짜 타로 해석 -->
+        <p class="card-explanation"
+           th:text="${explanation}">
+        </p>
+    </div>
+
+</div>
+
+<div class="buttons">
+    <a href="/draw">🔄 다시 1장 뽑기</a>
+    <a href="/">🏠 처음으로</a>
+</div>
+
+</body>
+</html>
