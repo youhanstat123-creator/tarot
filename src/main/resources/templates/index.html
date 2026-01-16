@@ -1,115 +1,158 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>오늘의 타로</title>
+    <title>Tarot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
+            font-family: "Pretendard", "Noto Sans KR", sans-serif;
+            background: linear-gradient(180deg, #0f1021, #1b1c3a);
+            color: #f5f5f7;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            background: radial-gradient(circle at top, #1b1c3a, #050510);
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            text-align: center;
         }
 
         h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
+            text-align: center;
+            margin: 80px 0 60px;
+            font-weight: 600;
             letter-spacing: 2px;
         }
 
-        .subtitle {
-            font-size: 15px;
-            color: #ccc;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        .menu {
+        .menu-wrap {
             display: flex;
-            flex-direction: column;
-            gap: 18px;
-            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            padding-bottom: 80px;
         }
 
-        .menu a {
+        .menu-card {
             width: 260px;
-            padding: 14px 0;
+            background: rgba(255,255,255,0.08);
+            border-radius: 22px;
+            padding: 26px;
+            text-align: center;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 26px 60px rgba(0,0,0,0.6);
+        }
+
+        /* ⭐ 카드 이미지 영역 (비율 고정 핵심) */
+        .card-image {
+            width: 100%;
+            height: 340px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .menu-card h3 {
+            margin: 14px 0 10px;
+            font-weight: 600;
+        }
+
+        .menu-card p {
+            font-size: 14px;
+            color: #d0d0ff;
+            line-height: 1.6;
+        }
+
+        .menu-card a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #7c7cff, #b49cff);
+            color: #1b1c3a;
             text-decoration: none;
-            color: #ffd;
-            border: 1px solid rgba(255, 215, 150, 0.5);
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            font-size: 16px;
-            letter-spacing: 1px;
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        .menu a:hover {
-            background: rgba(255, 215, 150, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 0 12px rgba(255, 215, 150, 0.4);
+        .menu-card a:hover {
+            opacity: 0.9;
         }
 
-        .footer {
-            margin-top: 40px;
-            font-size: 12px;
-            color: #777;
+        /* 📱 모바일 */
+        @media (max-width: 768px) {
+            .menu-wrap {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .menu-card {
+                width: 90%;
+                max-width: 320px;
+            }
+
+            .card-image {
+                height: 280px;
+            }
+
+            h1 {
+                margin: 60px 0 40px;
+            }
         }
-        /* 📱 모바일 대응 */
-@media (max-width: 768px) {
-
-    h1 {
-        font-size: 30px;
-    }
-
-    .subtitle {
-        font-size: 13px;
-        margin-bottom: 30px;
-    }
-
-    .menu a {
-        width: 90%;
-        font-size: 15px;
-        padding: 16px 0;
-    }
-
-    .container {
-        width: 100%;
-        padding: 0 16px;
-    }
-}
-
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<h1>🔮 Tarot</h1>
 
-    <h1>🔮 오늘의 타로</h1>
-    <div class="subtitle">
-        오늘의 선택이 내일의 흐름을 만듭니다
+<div class="menu-wrap">
+
+    <!-- 1장 타로 -->
+    <div class="menu-card">
+        <div class="card-image">
+            <img src="/image/single.png" alt="single tarot">
+        </div>
+        <h3>오늘의 타로</h3>
+        <p>
+            오늘 하루의 흐름과<br>
+            당신에게 필요한 메시지를 전합니다.
+        </p>
+        <a href="/draw">카드 뽑기</a>
     </div>
 
-    <div class="menu">
-        <a href="/draw">🌞 오늘의 타로 (1장)</a>
-        <a href="/draw3?type=today">🌞 오늘의 3장 타로</a>
-        <a href="/draw3?type=love">❤️ 연애운 3장 타로</a>
-        <a href="/draw3?type=money">💰 금전운 3장 타로</a>
+    <!-- 3장 타로 -->
+    <div class="menu-card">
+        <div class="card-image">
+            <img src="/image/three.png" alt="three tarot">
+        </div>
+        <h3>3장 타로</h3>
+        <p>
+            과거·현재·미래의 흐름을 통해<br>
+            전체적인 상황을 살펴봅니다.
+        </p>
+        <a href="/draw3">카드 뽑기</a>
     </div>
 
-    <div class="footer">
-        © Tarot Project
+    <!-- 궁합 타로 -->
+    <div class="menu-card">
+        <div class="card-image">
+            <img src="/image/match.png" alt="match tarot">
+        </div>
+        <h3>궁합 타로</h3>
+        <p>
+            두 사람의 마음과 관계의 흐름을<br>
+            타로 카드로 확인해 보세요.
+        </p>
+        <a href="/match">궁합 보기</a>
     </div>
 
 </div>

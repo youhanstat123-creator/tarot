@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>궁합 타로 결과</title>
+
+    <style>
+        body {
+            font-family: "Pretendard", "Noto Sans KR", sans-serif;
+            background: linear-gradient(180deg, #0f1021, #1b1c3a);
+            color: #f5f5f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 80px 0 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #c7c7ff;
+            margin-bottom: 50px;
+            font-size: 14px;
+        }
+
+        .card-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 26px;
+            margin-bottom: 60px;
+        }
+
+        .tarot-card {
+            width: 200px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+            transition: transform 0.25s ease;
+        }
+
+        .tarot-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .tarot-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .role {
+            font-size: 13px;
+            color: #d0d0ff;
+            margin-bottom: 6px;
+        }
+
+        .name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-name {
+            font-size: 13px;
+            color: #bdbdff;
+        }
+
+        .explain-wrap {
+            max-width: 860px;
+            margin: auto;
+        }
+
+        .explain-box {
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 28px 32px;
+            margin-bottom: 22px;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+        }
+
+        .explain-title {
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #e6e6ff;
+        }
+
+        .explain-text {
+            white-space: pre-line;
+            line-height: 1.7;
+            font-size: 14px;
+            color: #f1f1ff;
+        }
+
+        .summary {
+            max-width: 860px;
+            margin: 80px auto 120px;
+            background: linear-gradient(135deg, #7c7cff, #b49cff);
+            color: #1b1c3a;
+            border-radius: 22px;
+            padding: 36px 40px;
+            box-shadow: 0 18px 40px rgba(180,156,255,0.5);
+        }
+
+        .summary h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .summary p {
+            line-height: 1.7;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .btn-area {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.15);
+            color: #f5f5f7;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 8px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.28);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>💞 궁합 타로 결과</h2>
+<div class="subtitle">
+    <span th:text="${nameA}"></span> × <span th:text="${nameB}"></span>
+</div>
+
+<!-- 카드 영역 -->
+<div class="card-wrap">
+    <div class="tarot-card" th:each="card, stat : ${cards}">
+        <img th:src="@{/image/{img}(img=${card.image})}" alt="tarot">
+
+        <div class="role"
+             th:text="${stat.index == 0 ? '상대 A의 마음'
+                     : stat.index == 1 ? '상대 B의 마음'
+                     : '두 사람의 관계'}"></div>
+
+        <div class="name"
+             th:text="${stat.index == 0 ? nameA
+                     : stat.index == 1 ? nameB
+                     : 'Relationship'}"></div>
+
+        <div class="card-name" th:text="${card.name}"></div>
+    </div>
+</div>
+
+<!-- 카드별 해석 -->
+<div class="explain-wrap">
+    <div class="explain-box"
+         th:each="explain, stat : ${explanations}">
+        <div class="explain-title"
+             th:text="${stat.index == 0 ? '💖 상대 A의 마음'
+                     : stat.index == 1 ? '💗 상대 B의 마음'
+                     : '🔗 두 사람의 관계'}"></div>
+
+        <div class="explain-text" th:text="${explain}"></div>
+    </div>
+</div>
+
+<!-- 종합 해석 -->
+<div class="summary">
+    <h3>✨ 궁합 종합 해석</h3>
+    <p th:text="${summary}"></p>
+</div>
+
+<!-- 버튼 -->
+<div class="btn-area">
+    <a href="/match.html" class="btn">다시 보기</a>
+    <a href="/history" class="btn">내 기록 보기</a>
+</div>
+
+</body>
+</html>

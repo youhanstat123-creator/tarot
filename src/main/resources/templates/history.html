@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>나의 타로 기록</title>
+
+    <style>
+        body {
+            font-family: "Pretendard", "Noto Sans KR", sans-serif;
+            background: linear-gradient(180deg, #0f1021, #1b1c3a);
+            color: #f5f5f7;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .history-wrap {
+            width: 800px;
+            margin: auto;
+        }
+
+        .history-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 22px 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .history-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+        }
+
+        .question {
+            font-size: 16px;
+            font-weight: 500;
+            color: #e0e0ff;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #b8b8d9;
+        }
+
+        .type {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.25);
+            color: #c7c9ff;
+            font-weight: 500;
+        }
+
+        .date {
+            opacity: 0.85;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 60px 0;
+            color: #c5c6ff;
+            opacity: 0.8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>🔮 나의 타로 기록</h2>
+
+<div class="history-wrap">
+
+    <div th:each="h : ${histories}">
+        <a th:href="@{/history/{id}(id=${h.id})}">
+            <div class="history-card">
+                <div class="question">
+                    Q. [[${h.question}]]
+                </div>
+
+                <div class="meta">
+                    <span class="type">[[${h.type}]]</span>
+                    <span class="date">
+                        [[${#temporals.format(h.createdAt, 'yyyy-MM-dd')}]]
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(histories)}" class="empty">
+        아직 남겨진 타로 기록이 없어요 🌙
+    </div>
+
+</div>
+
+</body>
+</html>

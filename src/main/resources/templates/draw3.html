@@ -3,207 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>3장 타로</title>
-
-    <style>
-        body {
-            background: linear-gradient(#0f1020, #050510);
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h2 {
-            margin-top: 40px;
-        }
-
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 50px;
-            align-items: flex-start;
-        }
-
-        .card-column {
-            width: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .card-wrapper {
-            width: 180px;
-            height: 300px;
-            perspective: 1000px;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
-            cursor: pointer;
-        }
-
-        .card.flip {
-            transform: rotateY(180deg);
-        }
-
-        .face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .front {
-            transform: rotateY(180deg);
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 카드 설명 (기본 숨김) */
-        .card-text {
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            margin-top: 10px;
-        }
-
-        /* 카드 열리면 설명 표시 */
-        .card-column.open .card-text {
-            opacity: 1;
-            max-height: 320px;
-        }
-
-        .card-name {
-            font-weight: bold;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .card-explanation {
-            margin-top: 6px;
-            color: #ddd;
-            white-space: pre-line; /* 🔥 줄바꿈 핵심 */
-            font-size: 14px;
-        }
-
-        .buttons {
-            margin: 70px 0 40px;
-        }
-
-        .buttons a {
-            margin: 0 12px;
-            color: #bbb;
-            text-decoration: none;
-        }
-
-        .buttons a:hover {
-            color: white;
-        }
-        @media (max-width: 768px) {
-
-    .cards {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .card-column {
-        width: 100%;
-    }
-
-    .card-wrapper {
-        width: 160px;
-        height: 260px;
-    }
-}
-/* 🖱 PC 카드 Hover 효과 */
-@media (hover: hover) {
-
-    .card {
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: scale(1.04);
-        box-shadow:
-            0 0 20px rgba(255, 215, 150, 0.45),
-            0 0 40px rgba(255, 215, 150, 0.25);
-    }
-}
-
-    </style>
-
-    <script>
-        function flipCard(el) {
-            el.classList.toggle("flip");
-            el.closest(".card-column").classList.toggle("open");
-        }
-    </script>
+    <link rel="stylesheet" href="/css/tarot.css">
 </head>
-
 <body>
 
-<h2 th:text="
-    ${type == 'love' ? '❤️ 연애운 타로' :
-      type == 'money' ? '💰 금전운 타로' :
-      '🌞 오늘의 타로'}">
-</h2>
+<h2 class="tarot-title">과거 · 현재 · 미래</h2>
 
-<!-- 🔮 종합 해석 -->
-<div th:if="${summary != null and summary != ''}">
-    <p style="margin-top:15px; font-style:italic; color:#ffd;"
-       th:text="${summary}">
-    </p>
-</div>
+<p th:if="${summary}" class="card-explanation" th:text="${summary}"></p>
 
 <div class="cards">
+    <div th:each="card, stat : ${cards}" class="tarot-box"
+         onclick="this.classList.toggle('flip')">
 
-    <!-- 3장 카드 반복 -->
-    <div th:each="card, stat : ${cards}" class="card-column">
+        <div class="card">
+            <div class="card-face card-back">
+                <img src="/image/back.png">
+            </div>
 
-        <h4 th:text="${stat.index == 0 ? '과거' : stat.index == 1 ? '현재' : '미래'}"></h4>
-
-        <div class="card-wrapper">
-            <div class="card" onclick="flipCard(this)">
-                <div class="face back">
-                    <img src="/image/back.png">
-                </div>
-                <div class="face front">
-                    <img th:src="@{/image/{img}(img=${card.image})}">
-                </div>
+            <div class="card-face card-front">
+                <img th:src="@{/image/{img}(img=${card.image})}">
             </div>
         </div>
 
-        <!-- 카드 설명 -->
         <div class="card-text">
             <div class="card-name" th:text="${card.name}"></div>
-
-            <!-- ⭐ Service에서 만든 해석 출력 -->
             <p class="card-explanation"
-               th:text="${explanations[stat.index]}">
-            </p>
+               th:text="${explanations[stat.index]}"></p>
         </div>
-
     </div>
-
 </div>
 
 <div class="buttons">
-    <a href="/draw3?type=today">🔄 다시 3장 뽑기</a>
+    <a href="/draw3">🔄 다시 3장</a>
     <a href="/">🏠 처음으로</a>
 </div>
 

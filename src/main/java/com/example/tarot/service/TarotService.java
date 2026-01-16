@@ -252,4 +252,44 @@ public class TarotService {
 
         return time + topic;
     }
+
+    public List<String> buildMatchExplanations(List<TarotCardEntity> cards) {
+
+        List<String> result = new ArrayList<>();
+
+        String[] roles = {
+                "💖 상대 A의 마음",
+                "💗 상대 B의 마음",
+                "🔗 두 사람의 관계"
+        };
+
+        for (int i = 0; i < cards.size(); i++) {
+            TarotCardEntity card = cards.get(i);
+
+            String text =
+                    roles[i] + "\n\n" +
+                            "【키워드】 " + card.getKeyword() + "\n\n" +
+                            "【상황】 " + card.getSituation() + "\n\n" +
+                            "【조언】 " + card.getAdvice();
+
+            result.add(text);
+        }
+
+        return result;
+    }
+
+
+    public String buildMatchSummary(
+            List<TarotCardEntity> cards,
+            String nameA,
+            String nameB
+    ) {
+
+        return nameA + "와(과) " + nameB + "의 관계는 " +
+                cards.get(0).getKeyword() + "에서 시작해, " +
+                cards.get(1).getKeyword() + "의 감정을 거쳐 " +
+                cards.get(2).getKeyword() + "의 흐름으로 이어집니다.\n\n" +
+                "서로의 마음을 이해하려는 태도가 관계의 핵심이 될 것입니다.";
+    }
+
 }

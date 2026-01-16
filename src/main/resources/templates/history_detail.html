@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>타로 기록 상세</title>
+</head>
+<body>
+
+<h2>🔮 타로 기록 상세</h2>
+
+<p><strong>질문</strong></p>
+<p th:text="${history.question}"></p>
+
+<hr>
+
+<p><strong>타입</strong></p>
+<p th:text="${history.type}"></p>
+
+<hr>
+
+<p><strong>뽑은 카드</strong></p>
+<p th:text="${history.cardNames}"></p>
+
+<hr>
+
+<p><strong>해석</strong></p>
+<p th:text="${history.summary}"></p>
+
+<hr>
+
+<p><strong>날짜</strong></p>
+<p th:text="${history.createdAt}"></p>
+
+<br>
+
+<a href="/history">← 목록으로 돌아가기</a>
+
+</body>
+</html>

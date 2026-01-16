@@ -1,0 +1,135 @@
+body {
+background: linear-gradient(#0f1020, #050510);
+color: #f5f5f5;
+text-align: center;
+font-family: "Pretendard", Arial, sans-serif;
+margin: 0;
+}
+
+/* 제목 */
+.tarot-title {
+margin-top: 40px;
+font-size: 24px;
+letter-spacing: 1px;
+}
+
+/* 카드 영역 */
+.cards {
+display: flex;
+justify-content: center;
+gap: 40px;
+margin: 50px 0;
+flex-wrap: wrap;
+}
+
+/* 카드 박스 */
+.tarot-box {
+width: 220px;
+perspective: 1000px;
+}
+
+/* 카드 */
+.card {
+width: 220px;
+height: 360px;
+position: relative;
+transform-style: preserve-3d;
+transition: transform 0.8s;
+cursor: pointer;
+}
+
+/* 뒤집힘 */
+.tarot-box.flip .card {
+transform: rotateY(180deg);
+}
+
+/* 앞/뒤 공통 */
+.card-face {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+border-radius: 14px;
+overflow: hidden;
+}
+
+/* 뒷면 */
+.card-back {
+background: black;
+}
+
+/* 앞면 */
+.card-front {
+transform: rotateY(180deg);
+background: #1b1c3a;
+}
+
+/* 이미지 */
+.card-face img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+/* 카드 설명 */
+.card-text {
+opacity: 0;
+max-height: 0;
+overflow: hidden;
+transition: all 0.5s ease;
+margin-top: 10px;
+}
+
+.tarot-box.flip .card-text {
+opacity: 1;
+max-height: 300px;
+}
+
+/* 카드 이름 */
+.card-name {
+font-weight: bold;
+margin-top: 12px;
+font-size: 16px;
+}
+
+/* 해석 */
+.card-explanation {
+margin-top: 8px;
+font-size: 14px;
+color: #ffd;
+white-space: pre-line; /* 줄바꿈 핵심 */
+}
+
+/* 버튼 */
+.buttons {
+margin: 50px 0;
+}
+
+.buttons a {
+margin: 0 12px;
+color: #bbb;
+text-decoration: none;
+}
+
+.buttons a:hover {
+color: white;
+}
+.tarot-card {
+    width: 220px;
+    height: 360px;
+    border-radius: 14px;
+    overflow: hidden;   /* 이미지 넘치면 잘라냄 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.tarot-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* ⭐ 비율 유지하면서 꽉 채움 */
+    display: block;
+}
+@media (max-width: 768px) {
+    .tarot-card {
+        width: 180px;
+        height: 300px;
+    }
+}
