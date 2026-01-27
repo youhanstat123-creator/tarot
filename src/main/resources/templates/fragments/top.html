@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<nav class="topbar" th:fragment="top">
+    <div class="top-left">
+        <span class="logo">🔮 Tarot</span>
+
+        <a th:href="@{/draw}">오늘의 타로</a>
+        <a th:href="@{/draw3}">3장 타로</a>
+        <a th:href="@{/match}">궁합</a>
+        <a th:href="@{/history}">기록</a>
+    </div>
+
+    <div class="top-right">
+        <span class="user">guest 님</span>
+        <a href="#" class="logout">로그아웃</a>
+    </div>
+</nav>
+
+</body>
+</html>

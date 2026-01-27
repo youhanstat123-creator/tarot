@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>1장 타로</title>
-    <link rel="stylesheet" href="/css/tarot.css">
+    <link rel="stylesheet" th:href="@{/css/tarot.css}">
+
 </head>
 <body>
-
+<div th:replace="~{fragments/top :: top}"></div>
 <h2 class="tarot-title">카드를 눌러주세요 🔮</h2>
 
 <div class="cards">

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>3장 타로</title>
-    <link rel="stylesheet" href="/css/tarot.css">
+    <link rel="stylesheet" th:href="@{/css/tarot.css}">
+
 </head>
 <body>
-
+<div th:replace="~{fragments/top :: top}"></div>
 <h2 class="tarot-title">과거 · 현재 · 미래</h2>
 
 <p th:if="${summary}" class="card-explanation" th:text="${summary}"></p>
