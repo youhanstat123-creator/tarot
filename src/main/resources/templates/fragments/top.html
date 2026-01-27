@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
 <nav class="topbar" th:fragment="top">
@@ -13,8 +14,17 @@
     </div>
 
     <div class="top-right">
-        <span class="user">guest 님</span>
-        <a href="#" class="logout">로그아웃</a>
+        <!-- 로그인 안 했을 때 -->
+        <span sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">로그인</a>
+            <a th:href="@{/join}">회원가입</a>
+        </span>
+
+        <!-- 로그인 했을 때 -->
+        <span sec:authorize="isAuthenticated()">
+            <span class="user"><span sec:authentication="name"></span> 님</span>
+            <a th:href="@{/logout}" class="logout">로그아웃</a>
+        </span>
     </div>
 </nav>
 

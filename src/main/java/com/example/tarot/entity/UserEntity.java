@@ -20,5 +20,8 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;   // 암호화 비밀번호
 
+    @Column(nullable = false)
+    private String name;       // 사용자 이름 (실명)
+
     private String role;       // ROLE_USER
 }

@@ -49,14 +49,16 @@ body {
 }
 
 /* 메뉴 */
-.top-left a {
+.top-left a,
+.top-right a:not(.logout) {
     color: #e5e7eb;
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
 }
 
-.top-left a:hover {
+.top-left a:hover,
+.top-right a:not(.logout):hover {
     color: #c4b5fd;
 }
 
