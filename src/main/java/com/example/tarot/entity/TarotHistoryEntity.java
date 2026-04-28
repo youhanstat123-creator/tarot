@@ -12,19 +12,20 @@ public class TarotHistoryEntity {
     private Long id;
 
     private String question;
-    private String type;        // today / love / money
-    private String cardNames;   // 카드 이름들
+    private String type;
+    private String cardNames;
 
     @Column(length = 1000)
     private String summary;
 
     private LocalDateTime createdAt;
 
+    // 🔥 변경 핵심
     @Column(nullable = false)
-    private String sessionId;   // 브라우저 식별자
+    private String username;
 
     @Column(nullable = false)
-    private String category;    // single / three / match
+    private String category;
 
     @PrePersist
     public void onCreate() {
@@ -38,7 +39,7 @@ public class TarotHistoryEntity {
     public String getCardNames() { return cardNames; }
     public String getSummary() { return summary; }
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public String getSessionId() { return sessionId; }
+    public String getUsername() { return username; }   // 🔥 추가
     public String getCategory() { return category; }
 
     // ===== Setter =====
@@ -46,6 +47,6 @@ public class TarotHistoryEntity {
     public void setType(String type) { this.type = type; }
     public void setCardNames(String cardNames) { this.cardNames = cardNames; }
     public void setSummary(String summary) { this.summary = summary; }
-    public void setSessionId(String sessionId) { this.sessionId = sessionId; }
+    public void setUsername(String username) { this.username = username; } // 🔥 추가
     public void setCategory(String category) { this.category = category; }
 }

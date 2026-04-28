@@ -200,7 +200,7 @@ public class TarotService {
                             "【상황】 " + card.getSituation() + "\n\n" +
                             "【조언】 " + card.getAdvice();
 
-            result.add(header + body);
+            result.add(body);
         }
         return result;
     }
@@ -258,8 +258,8 @@ public class TarotService {
         List<String> result = new ArrayList<>();
 
         String[] roles = {
-                "💖 상대 A의 마음",
-                "💗 상대 B의 마음",
+                "💖 본인 의 마음",
+                "💗 상대 의 마음",
                 "🔗 두 사람의 관계"
         };
 

@@ -4,13 +4,11 @@ import com.example.tarot.entity.TarotCardEntity;
 import com.example.tarot.entity.TarotHistoryEntity;
 import com.example.tarot.service.TarotHistoryService;
 import com.example.tarot.service.TarotService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -38,20 +36,20 @@ public class TarotController {
             @RequestParam(defaultValue = "today") String type,
             @RequestParam(required = false) String question,
             Model model,
-            HttpSession session
+            Principal principal
     ) {
-        String sessionId = session.getId();
+        String username = principal.getName();
 
         TarotCardEntity tarotCard = tarotService.pickOne();
         String explanation =
                 tarotService.buildSingleExplanation(tarotCard, type);
 
-       historyService.saveSingle(
+        historyService.saveSingle(
                 question,
-              tarotCard,
-               explanation,
+                tarotCard,
+                explanation,
                 type,
-                sessionId
+                username
         );
 
         model.addAttribute("tarotCard", tarotCard);
@@ -68,9 +66,9 @@ public class TarotController {
             @RequestParam(defaultValue = "today") String type,
             @RequestParam(required = false) String question,
             Model model,
-            HttpSession session
+            Principal principal
     ) {
-        String sessionId = session.getId();
+        String username = principal.getName();
 
         List<TarotCardEntity> cards = tarotService.drawThree();
         List<String> explanations =
@@ -83,7 +81,7 @@ public class TarotController {
                 cards,
                 summary,
                 type,
-                sessionId
+                username   // 🔥 여기 빠져있던 거 채움
         );
 
         model.addAttribute("cards", cards);
@@ -95,15 +93,17 @@ public class TarotController {
         return "draw3";
     }
 
-    // 📜 히스토리
+    // 📜 히스토리 목록
     @GetMapping("/history")
-    public String history(Model model, HttpSession session) {
-        String sessionId = session.getId();
+    public String history(Model model, Principal principal) {
+
+        String username = principal.getName();
 
         model.addAttribute(
                 "histories",
-                historyService.findBySession(sessionId)
+                historyService.findByUsername(username)
         );
+
         return "history";
     }
 
@@ -133,9 +133,9 @@ public class TarotController {
             @RequestParam String nameB,
             @RequestParam(required = false) String question,
             Model model,
-            HttpSession session
+            Principal principal
     ) {
-        String sessionId = session.getId();
+        String username = principal.getName();
 
         List<TarotCardEntity> cards = tarotService.drawThree();
         List<String> explanations =
@@ -149,7 +149,7 @@ public class TarotController {
                 question,
                 cards,
                 summary,
-                sessionId
+                username   // 🔥 session → username
         );
 
         model.addAttribute("nameA", nameA);

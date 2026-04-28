@@ -23,14 +23,14 @@ public class TarotHistoryService {
             TarotCardEntity card,
             String explanation,
             String type,
-            String sessionId
+            String username   // 🔥 변경
     ) {
         TarotHistoryEntity history = new TarotHistoryEntity();
         history.setQuestion(question);
         history.setType(type);
         history.setCardNames(card.getName());
         history.setSummary(explanation);
-        history.setSessionId(sessionId);
+        history.setUsername(username);   // 🔥 변경
         history.setCategory("single");
 
         repository.save(history);
@@ -42,7 +42,7 @@ public class TarotHistoryService {
             List<TarotCardEntity> cards,
             String summary,
             String type,
-            String sessionId
+            String username   // 🔥 변경
     ) {
         TarotHistoryEntity history = new TarotHistoryEntity();
         history.setQuestion(question);
@@ -53,7 +53,7 @@ public class TarotHistoryService {
                         .collect(Collectors.joining(", "))
         );
         history.setSummary(summary);
-        history.setSessionId(sessionId);
+        history.setUsername(username);   // 🔥 변경
         history.setCategory("three");
 
         repository.save(history);
@@ -66,7 +66,7 @@ public class TarotHistoryService {
             String question,
             List<TarotCardEntity> cards,
             String summary,
-            String sessionId
+            String username   // 🔥 변경
     ) {
         TarotHistoryEntity history = new TarotHistoryEntity();
         history.setQuestion(nameA + " ❤ " + nameB);
@@ -77,15 +77,15 @@ public class TarotHistoryService {
                         .collect(Collectors.joining(", "))
         );
         history.setSummary(summary);
-        history.setSessionId(sessionId);
+        history.setUsername(username);   // 🔥 변경
         history.setCategory("match");
 
         repository.save(history);
     }
 
-    // 📜 조회
-    public List<TarotHistoryEntity> findBySession(String sessionId) {
-        return repository.findBySessionIdOrderByCreatedAtDesc(sessionId);
+    // 📜 조회 (🔥 핵심 변경)
+    public List<TarotHistoryEntity> findByUsername(String username) {
+        return repository.findByUsernameOrderByCreatedAtDesc(username);
     }
 
     public TarotHistoryEntity findById(Long id) {

@@ -8,34 +8,40 @@
 </head>
 <body>
 <div th:replace="~{fragments/top :: top}"></div>
-<h2>🔮 타로 기록 상세</h2>
 
-<p><strong>질문</strong></p>
-<p th:text="${history.question}"></p>
+<div class="detail-wrap">
 
-<hr>
+    <div class="detail-card">
 
-<p><strong>타입</strong></p>
-<p th:text="${history.type}"></p>
+        <h2>🔮 타로 기록 상세</h2>
 
-<hr>
+        <div class="detail-item">
+            <span class="label">질문</span>
+            <p th:text="${history.question}"></p>
+        </div>
 
-<p><strong>뽑은 카드</strong></p>
-<p th:text="${history.cardNames}"></p>
+        <div class="detail-item">
+            <span class="label">타입</span>
+            <p th:text="${history.type}"></p>
+        </div>
 
-<hr>
+        <div class="detail-item">
+            <span class="label">뽑은 카드</span>
+            <p th:text="${history.cardNames}"></p>
+        </div>
 
-<p><strong>해석</strong></p>
-<p th:text="${history.summary}"></p>
+        <div class="detail-item">
+            <span class="label">해석</span>
+            <p th:text="${history.summary}"></p>
+        </div>
 
-<hr>
+        <div class="detail-item">
+            <span class="label">날짜</span>
+            <p th:text="${#temporals.format(history.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+        </div>
 
-<p><strong>날짜</strong></p>
-<p th:text="${history.createdAt}"></p>
+        <a href="/history" class="back-btn">← 목록으로 돌아가기</a>
 
-<br>
+    </div>
 
-<a href="/history">← 목록으로 돌아가기</a>
-
-</body>
-</html>
+</div>

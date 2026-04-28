@@ -8,8 +8,20 @@
 </head>
 <body>
 <div th:replace="~{fragments/top :: top}"></div>
-<h2 class="tarot-title">과거 · 현재 · 미래</h2>
-
+<h2 class="tarot-title">과거 · 현재 · 미래🔮</h2>
+<!-- 🔥 질문 입력 -->
+<form action="/draw3" method="get" style="text-align:center; margin-bottom:30px;">
+    <input type="text" name="question" placeholder="질문을 입력하세요 ✨"
+           style="padding:10px; width:260px; border-radius:8px; border:none;">
+    <button type="submit"
+            style="padding:10px 20px; border-radius:8px; margin-left:10px;">
+        3장 뽑기
+    </button>
+</form>
+<p th:if="${question}"
+   style="text-align:center; margin-bottom:20px; color:#cfcfff;">
+    Q. <span th:text="${question}"></span>
+</p>
 <p th:if="${summary}" class="card-explanation" th:text="${summary}"></p>
 
 <div class="cards">
@@ -27,9 +39,21 @@
         </div>
 
         <div class="card-text">
+
+            <!-- 카드 이름 -->
             <div class="card-name" th:text="${card.name}"></div>
+
+            <!-- 🔥 여기 추가 (과거/현재/미래 표시) -->
+            <div class="card-type"
+                 th:text="${stat.index == 0 ? '🔮 과거 '
+                 : (stat.index == 1 ? '✨ 현재 '
+                 : '🌙 미래 ')}">
+            </div>
+
+            <!-- 카드 설명 -->
             <p class="card-explanation"
                th:text="${explanations[stat.index]}"></p>
+
         </div>
     </div>
 </div>

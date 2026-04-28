@@ -22,13 +22,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
 
+                // 🔥 H2 콘솔 접근 허용 (iframe 문제 해결)
+                .headers(headers ->
+                        headers.frameOptions(frame -> frame.disable())
+                )
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
                                 "/login",
                                 "/join",
+                                "/joinProc",
                                 "/css/**",
                                 "/image/**",
+                                "/h2-console/**",
                                 "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
@@ -36,7 +43,7 @@ public class SecurityConfig {
 
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
 
