@@ -93,4 +93,8 @@ public class TarotHistoryService {
                 .orElseThrow(() ->
                         new IllegalArgumentException("기록 없음"));
     }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }

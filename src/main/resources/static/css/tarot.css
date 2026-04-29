@@ -248,3 +248,35 @@ body {
     text-decoration: none;
     font-weight: 600;
 }
+.top-right span {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.top-right a {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+/* 로그인 버튼 */
+.top-right a:first-child {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* 회원가입 버튼 */
+.top-right a:last-child {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-weight: 500;
+}
+
+/* hover 효과 */
+.top-right a:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}

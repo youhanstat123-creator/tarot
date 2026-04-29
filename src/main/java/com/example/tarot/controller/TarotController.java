@@ -31,7 +31,7 @@ public class TarotController {
     }
 
     // 🔮 1장 타로
-    @GetMapping("/draw")
+    @PostMapping("/draw")
     public String draw(
             @RequestParam(defaultValue = "today") String type,
             @RequestParam(required = false) String question,
@@ -61,7 +61,7 @@ public class TarotController {
     }
 
     // 🔮 3장 타로
-    @GetMapping("/draw3")
+    @PostMapping("/draw3")
     public String draw3(
             @RequestParam(defaultValue = "today") String type,
             @RequestParam(required = false) String question,
@@ -106,6 +106,12 @@ public class TarotController {
 
         return "history";
     }
+    @PostMapping("/history/delete")
+    public String deleteHistory(@RequestParam Long id) {
+        historyService.deleteById(id);
+        return "redirect:/history";
+    }
+
 
     // 📜 히스토리 상세
     @GetMapping("/history/{id}")

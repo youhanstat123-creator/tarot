@@ -9,7 +9,7 @@
 <body>
 <div th:replace="~{fragments/top :: top}"></div>
 <h2 class="tarot-title">카드를 눌러주세요 🔮</h2>
-<form action="/draw" method="get" style="text-align:center; margin-bottom:30px;">
+<form action="/draw" method="post" style="text-align:center; margin-bottom:30px;">
     <input type="text" name="question"
            th:value="${question}"
            placeholder="질문을 입력하세요 ✨"
